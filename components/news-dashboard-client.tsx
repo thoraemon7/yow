@@ -14,7 +14,6 @@ const SECTION_CONFIG = [
   { key: "Tech_Giants_News",    label: "Tech Giants News",   emoji: "🦄", isFunding: false, initialItems: 4  },
   { key: "Opinions_Blogs",      label: "Opinions & Reports", emoji: "📄", isFunding: false, initialItems: 4  },
 ] as const
-] as const
 
 interface Props {
   articles: Article[]
@@ -30,7 +29,6 @@ export function NewsDashboardClient({ articles }: Props) {
     if (searchOpen) inputRef.current?.focus()
   }, [searchOpen])
 
-  // Sort articles by pub_date descending
   const sorted = [...articles].sort((a, b) => {
     const dateA = a.pub_date ?? a.created_at
     const dateB = b.pub_date ?? b.created_at
@@ -63,7 +61,6 @@ export function NewsDashboardClient({ articles }: Props) {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-6 md:py-8">
-      {/* Header row */}
       <div className="mb-6 md:mb-8">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -74,35 +71,34 @@ export function NewsDashboardClient({ articles }: Props) {
               <span role="img" aria-label="astronaut cat">🐱‍🚀</span> SEA Startup News
             </h2>
             {articles.length > 0 && (
-            <p className="mt-1 text-xs text-muted-foreground">
-              {articles.length} articles from the last 7 days
-            </p>
-          )}
-          <div className="mt-2 flex flex-wrap gap-3">
-            <button onClick={() => setPopout(popout === "process" ? null : "process")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Process</button>
-            <button onClick={() => setPopout(popout === "disclaimer" ? null : "disclaimer")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Disclaimer</button>
-            <a href="https://tally.so/r/ODADP7" target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Suggest Site</a>
-          </div>
-          {popout && (
-            <div className="mt-3 max-w-md rounded-lg border border-border bg-card p-4 relative">
-              <button onClick={() => setPopout(null)} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground">
-                <X className="h-3 w-3" />
-              </button>
-              {popout === "process" && (
-                <p className="text-xs text-muted-foreground leading-relaxed italic">
-                  🇮🇩 🇸🇬 🇻🇳 🇵🇭 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially ID, SG, VN, PH.
-                </p>
-              )}
-              {popout === "disclaimer" && (
-                <p className="text-xs text-muted-foreground leading-relaxed italic">
-                  We only use publicly available information - Support quality journalism — click the link to read the full article and do subscribe to their contents!
-                </p>
-              )}
+              <p className="mt-1 text-xs text-muted-foreground">
+                {articles.length} articles from the last 7 days
+              </p>
+            )}
+            <div className="mt-2 flex flex-wrap gap-3">
+              <button onClick={() => setPopout(popout === "process" ? null : "process")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Process</button>
+              <button onClick={() => setPopout(popout === "disclaimer" ? null : "disclaimer")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Disclaimer</button>
+              <a href="https://tally.so/r/ODADP7" target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Suggest Site</a>
             </div>
-          )}
+            {popout && (
+              <div className="mt-3 max-w-md rounded-lg border border-border bg-card p-4 relative">
+                <button onClick={() => setPopout(null)} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground">
+                  <X className="h-3 w-3" />
+                </button>
+                {popout === "process" && (
+                  <p className="text-xs text-muted-foreground leading-relaxed italic">
+                    🇮🇩 🇸🇬 🇻🇳 🇵🇭 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially ID, SG, VN, PH.
+                  </p>
+                )}
+                {popout === "disclaimer" && (
+                  <p className="text-xs text-muted-foreground leading-relaxed italic">
+                    We only use publicly available information - Support quality journalism — click the link to read the full article and do subscribe to their contents!
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* Search toggle */}
           <div className="flex items-center gap-2 mt-1">
             {searchOpen ? (
               <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
@@ -132,7 +128,6 @@ export function NewsDashboardClient({ articles }: Props) {
         </div>
       </div>
 
-      {/* Search results */}
       {isSearching ? (
         <div>
           <p className="mb-4 text-xs text-muted-foreground">
@@ -166,17 +161,17 @@ export function NewsDashboardClient({ articles }: Props) {
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {SECTION_CONFIG.map(({ key, label, emoji, isFunding }) => {
+          {SECTION_CONFIG.map(({ key, label, emoji, isFunding, initialItems }) => {
             const items = bySection[key] ?? []
             return (
               <div key={key} id={key.toLowerCase().replace(/_/g, "-")}>
                 <NewsSection
-                    title={label}
-                    emoji={emoji}
-                    items={items}
-                    isFunding={isFunding}
-                    initialItemsToShow={initialItems}
-                  />
+                  title={label}
+                  emoji={emoji}
+                  items={items}
+                  isFunding={isFunding}
+                  initialItemsToShow={initialItems}
+                />
               </div>
             )
           })}
@@ -185,11 +180,11 @@ export function NewsDashboardClient({ articles }: Props) {
 
       <footer className="mt-12 border-t border-border pt-6 text-center">
         <p className="text-xs text-muted-foreground">
-            Auto-updated at 8:55 AM & 3:00 PM WIB · Powered by SeaCatBot
-          </p>
-          <p className="mt-2 text-xs text-muted-foreground/60 italic">
-            SCB curates publicly available news and reports. All articles belong to their original publishers. Click through to support original journalism.
-          </p>
+          Auto-updated at 8:55 AM & 3:00 PM WIB · Powered by SeaCatBot
+        </p>
+        <p className="mt-2 text-xs text-muted-foreground/60 italic">
+          SCB curates publicly available news and reports. All articles belong to their original publishers. Click through to support original journalism.
+        </p>
       </footer>
     </main>
   )
