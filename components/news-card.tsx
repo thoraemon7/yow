@@ -45,10 +45,10 @@ export function NewsCard(props: NewsCardProps) {
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-xs font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-2">
+            <h3 className="text-sm font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-2">
               {props.title_ai}
             </h3>
-            <p className="mt-1 text-[10px] text-muted-foreground/70 font-medium">{props.source}</p>
+            <p className="mt-1 text-xs text-muted-foreground/70 font-medium">{props.source}</p>
           </div>
           <ArrowUpRight className="h-3 w-3 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 mt-0.5" />
         </div>
