@@ -29,8 +29,7 @@ export function NewsSection({
   title, 
   emoji, 
   items, 
-  defaultOpen = true, 
-  defaultOpenMobile,
+  isFunding = false,
   initialItemsToShow = 4,
   loadMoreCount = 4
 }: NewsSectionProps) {
@@ -38,11 +37,13 @@ export function NewsSection({
   const [visibleCount, setVisibleCount] = useState(initialItemsToShow)
   
   useEffect(() => {
-    if (defaultOpenMobile !== undefined) {
-      const isMobile = window.innerWidth < 768
-      setIsOpen(isMobile ? defaultOpenMobile : defaultOpen)
+    const isMobile = window.innerWidth < 768
+    if (isMobile && isFunding) {
+      setIsOpen(false)
+    } else {
+      setIsOpen(true)
     }
-  }, [defaultOpen, defaultOpenMobile])
+  }, [isFunding])
 
   const visibleItems = items.slice(0, visibleCount)
   const hasMoreItems = visibleCount < items.length
