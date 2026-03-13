@@ -7,12 +7,13 @@ import { NewsCard } from "./news-card"
 import type { Article } from "@/app/page"
 
 const SECTION_CONFIG = [
-  { key: "Funding_News",        label: "Funding News",       emoji: "⭐", isFunding: true  },
-  { key: "Economic_Indicators", label: "Economic News",      emoji: "🌐", isFunding: false },
-  { key: "Regional_News",       label: "Regional News",      emoji: "🗞️", isFunding: false },
-  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO News",  emoji: "📈", isFunding: false },
-  { key: "Tech_Giants_News",    label: "Tech Giants News",   emoji: "🦄", isFunding: false },
-  { key: "Opinions_Blogs",      label: "Opinions & Reports", emoji: "📄", isFunding: false },
+  { key: "Funding_News",        label: "Funding News",       emoji: "⭐", isFunding: true,  initialItems: 4  },
+  { key: "Economic_Indicators", label: "Economic News",      emoji: "🌐", isFunding: false, initialItems: 10 },
+  { key: "Regional_News",       label: "Regional News",      emoji: "🗞️", isFunding: false, initialItems: 10 },
+  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO News",  emoji: "📈", isFunding: false, initialItems: 4  },
+  { key: "Tech_Giants_News",    label: "Tech Giants News",   emoji: "🦄", isFunding: false, initialItems: 4  },
+  { key: "Opinions_Blogs",      label: "Opinions & Reports", emoji: "📄", isFunding: false, initialItems: 4  },
+] as const
 ] as const
 
 interface Props {
@@ -147,11 +148,12 @@ export function NewsDashboardClient({ articles }: Props) {
             return (
               <div key={key} id={key.toLowerCase().replace(/_/g, "-")}>
                 <NewsSection
-                  title={label}
-                  emoji={emoji}
-                  items={items}
-                  isFunding={isFunding}
-                />
+                    title={label}
+                    emoji={emoji}
+                    items={items}
+                    isFunding={isFunding}
+                    initialItemsToShow={initialItems}
+                  />
               </div>
             )
           })}
