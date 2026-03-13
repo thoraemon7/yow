@@ -60,7 +60,7 @@ export function NewsCard(props: NewsCardProps) {
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-base font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-2">
+            <h3 className="text-base font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-none">
               {props.title_ai}{isToday && <span className="ml-1 text-xs">🆕</span>}
             </h3>
             <p className="mt-1 text-xs text-muted-foreground/70 font-medium">{props.source}</p>
