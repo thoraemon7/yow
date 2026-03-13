@@ -19,23 +19,22 @@ interface NewsSectionProps {
   title: string
   emoji: string
   items: NewsItem[]
-  defaultOpen?: boolean
-  defaultOpenMobile?: boolean
+  isFunding?: boolean
   initialItemsToShow?: number
   loadMoreCount?: number
 }
 
-export function NewsSection({ 
-  title, 
-  emoji, 
-  items, 
+export function NewsSection({
+  title,
+  emoji,
+  items,
   isFunding = false,
   initialItemsToShow = 4,
   loadMoreCount = 4
 }: NewsSectionProps) {
-  const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [isOpen, setIsOpen] = useState(true)
   const [visibleCount, setVisibleCount] = useState(initialItemsToShow)
-  
+
   useEffect(() => {
     const isMobile = window.innerWidth < 768
     if (isMobile && isFunding) {
@@ -64,8 +63,8 @@ export function NewsSection({
           <h2 className="text-lg font-semibold text-foreground">{title}</h2>
           <span className="text-xs text-muted-foreground">({items.length})</span>
         </div>
-        <ChevronDown 
-          className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-0" : "-rotate-90"}`} 
+        <ChevronDown
+          className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-0" : "-rotate-90"}`}
         />
       </button>
       {isOpen && (
@@ -84,14 +83,15 @@ export function NewsSection({
                     country={item.country}
                     pub_date={item.pub_date}
                     link={item.link}
+                    isFunding={isFunding}
                   />
                 ))}
               </div>
               {hasMoreItems && (
                 <div className="mt-3 flex justify-center">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={handleLoadMore}
                     className="text-xs text-muted-foreground hover:text-foreground"
                   >
