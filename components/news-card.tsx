@@ -49,7 +49,7 @@ export function NewsCard(props: NewsCardProps) {
             {props.isFunding ? (
               <span className="text-lg leading-none">{countryToFlag(props.country)}</span>
             ) : (
-              <span className="text-[11px] font-bold text-primary leading-none tracking-wide">
+              <span className="text-[11px] font-bold text-foreground leading-none tracking-wide">
                 {countryCode}
               </span>
             )}
