@@ -17,12 +17,12 @@ type Article = {
 }
 
 const SECTION_CONFIG = [
-  { key: "Funding_News",        label: "Funding News",       emoji: "⭐" },
-  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO",       emoji: "📈" },
-  { key: "Regional_News",       label: "Regional News",      emoji: "🗞️" },
-  { key: "Economic_Indicators", label: "Economic Indicators", emoji: "🌐" },
-  { key: "Tech_Giants_News",    label: "Tech Giants",        emoji: "🦄" },
-  { key: "Opinions_Blogs",      label: "Opinions & Reports", emoji: "📄" },
+  { key: "Funding_News",        label: "Funding News",        emoji: "⭐", isFunding: true  },
+  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO",        emoji: "📈", isFunding: false },
+  { key: "Regional_News",       label: "Regional News",       emoji: "🗞️", isFunding: false },
+  { key: "Economic_Indicators", label: "Economic Indicators", emoji: "🌐", isFunding: false },
+  { key: "Tech_Giants_News",    label: "Tech Giants",         emoji: "🦄", isFunding: false },
+  { key: "Opinions_Blogs",      label: "Opinions & Reports",  emoji: "📄", isFunding: false },
 ] as const
 
 async function fetchArticles(): Promise<Article[]> {
@@ -87,7 +87,7 @@ export default async function NewsDashboard() {
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {SECTION_CONFIG.map(({ key, label, emoji }) => {
+            {SECTION_CONFIG.map(({ key, label, emoji, isFunding }) => {
               const items = bySection[key] ?? []
               return (
                 <div key={key} id={key.toLowerCase().replace(/_/g, "-")}>
@@ -95,8 +95,7 @@ export default async function NewsDashboard() {
                     title={label}
                     emoji={emoji}
                     items={items}
-                    defaultOpen={key === "Funding_News"}
-                    defaultOpenMobile={key === "Funding_News"}
+                    isFunding={isFunding}
                   />
                 </div>
               )
