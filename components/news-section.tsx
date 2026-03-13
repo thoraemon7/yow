@@ -6,42 +6,43 @@ import { Button } from "@/components/ui/button"
 import { NewsCard } from "./news-card"
 
 interface NewsItem {
-  id: string
-  date: string
-  flag: string
-  headline: string
+  id: number
+  title_ai: string
+  summary: string
   source: string
-  sourceUrl: string
+  country: string
+  pub_date: string | null
+  link: string
 }
 
 interface NewsSectionProps {
   title: string
   emoji: string
   items: NewsItem[]
-  defaultOpen?: boolean
-  defaultOpenMobile?: boolean
+  isFunding?: boolean
   initialItemsToShow?: number
   loadMoreCount?: number
 }
 
-export function NewsSection({ 
-  title, 
-  emoji, 
-  items, 
-  defaultOpen = true, 
-  defaultOpenMobile,
+export function NewsSection({
+  title,
+  emoji,
+  items,
+  isFunding = false,
   initialItemsToShow = 4,
   loadMoreCount = 4
 }: NewsSectionProps) {
-  const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [isOpen, setIsOpen] = useState(true)
   const [visibleCount, setVisibleCount] = useState(initialItemsToShow)
-  
+
   useEffect(() => {
-    if (defaultOpenMobile !== undefined) {
-      const isMobile = window.innerWidth < 768
-      setIsOpen(isMobile ? defaultOpenMobile : defaultOpen)
+    const isMobile = window.innerWidth < 768
+    if (isMobile && isFunding) {
+      setIsOpen(false)
+    } else {
+      setIsOpen(true)
     }
-  }, [defaultOpen, defaultOpenMobile])
+  }, [isFunding])
 
   const visibleItems = items.slice(0, visibleCount)
   const hasMoreItems = visibleCount < items.length
@@ -60,36 +61,45 @@ export function NewsSection({
         <div className="flex items-center gap-3">
           <span className="text-xl" role="img" aria-hidden="true">{emoji}</span>
           <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+          <span className="text-xs text-muted-foreground">({items.length})</span>
         </div>
-        <ChevronDown 
-          className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-0" : "-rotate-90"}`} 
+        <ChevronDown
+          className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-0" : "-rotate-90"}`}
         />
       </button>
       {isOpen && (
         <div className="mt-4">
-          <div className="divide-y divide-border/50">
-            {visibleItems.map((item) => (
-              <NewsCard
-                key={item.id}
-                date={item.date}
-                flag={item.flag}
-                headline={item.headline}
-                source={item.source}
-                sourceUrl={item.sourceUrl}
-              />
-            ))}
-          </div>
-          {hasMoreItems && (
-            <div className="mt-3 flex justify-center">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={handleLoadMore}
-                className="text-xs text-muted-foreground hover:text-foreground"
-              >
-                Load more ({items.length - visibleCount} remaining)
-              </Button>
-            </div>
+          {items.length === 0 ? (
+            <p className="text-xs text-muted-foreground py-4 text-center">No articles yet</p>
+          ) : (
+            <>
+              <div className="divide-y divide-border/50">
+                {visibleItems.map((item) => (
+                  <NewsCard
+                    key={item.id}
+                    title_ai={item.title_ai}
+                    summary={item.summary}
+                    source={item.source}
+                    country={item.country}
+                    pub_date={item.pub_date}
+                    link={item.link}
+                    isFunding={isFunding}
+                  />
+                ))}
+              </div>
+              {hasMoreItems && (
+                <div className="mt-3 flex justify-center">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleLoadMore}
+                    className="text-xs text-muted-foreground hover:text-foreground"
+                  >
+                    Load more ({items.length - visibleCount} remaining)
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}
