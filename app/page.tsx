@@ -71,7 +71,7 @@ export default async function NewsDashboard() {
             {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
           </p>
           <h2 className="mt-1 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            <span role="img" aria-label="astronaut cat">🐱‍🚀</span> SEA Startup Intelligence
+            <span role="img" aria-label="astronaut cat">🐱‍🚀</span> Southeast Asian Startup News
           </h2>
           {totalArticles > 0 && (
             <p className="mt-1 text-xs text-muted-foreground">
