@@ -33,7 +33,9 @@ function formatDate(dateStr: string | null): string {
 export function NewsCard(props: NewsCardProps) {
   const flag = countryToFlag(props.country)
   const date = formatDate(props.pub_date)
-
+  const today = new Date().toISOString().split("T")[0]
+  const isToday = props.pub_date === today
+  
   return (
     <article className="group relative border-b border-border/50 py-3 transition-colors hover:bg-secondary/40">
       <a href={props.link} target="_blank" rel="noopener noreferrer" className="block">
@@ -46,7 +48,7 @@ export function NewsCard(props: NewsCardProps) {
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="text-sm font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-2">
-              {props.title_ai}
+              {props.title_ai}{isToday && <span className="ml-1 text-xs">🆕</span>}
             </h3>
             <p className="mt-1 text-xs text-muted-foreground/70 font-medium">{props.source}</p>
           </div>
