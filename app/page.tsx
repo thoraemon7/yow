@@ -17,12 +17,12 @@ type Article = {
 }
 
 const SECTION_CONFIG = [
-  { key: "Funding_News",        label: "Funding News",        emoji: "⭐", isFunding: true  },
-  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO",        emoji: "📈", isFunding: false },
-  { key: "Regional_News",       label: "Regional News",       emoji: "🗞️", isFunding: false },
-  { key: "Economic_Indicators", label: "Economic Indicators", emoji: "🌐", isFunding: false },
-  { key: "Tech_Giants_News",    label: "Tech Giants",         emoji: "🦄", isFunding: false },
-  { key: "Opinions_Blogs",      label: "Opinions & Reports",  emoji: "📄", isFunding: false },
+  { key: "Funding_News",        label: "Funding News",       emoji: "⭐", isFunding: true  },
+  { key: "Economic_Indicators", label: "Economic News",      emoji: "🌐", isFunding: false },
+  { key: "Regional_News",       label: "Regional News",      emoji: "🗞️", isFunding: false },
+  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO News",  emoji: "📈", isFunding: false },
+  { key: "Tech_Giants_News",    label: "Tech Giants News",   emoji: "🦄", isFunding: false },
+  { key: "Opinions_Blogs",      label: "Opinions & Reports", emoji: "📄", isFunding: false },
 ] as const
 
 async function fetchArticles(): Promise<Article[]> {
