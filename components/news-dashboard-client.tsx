@@ -178,7 +178,10 @@ export function NewsDashboardClient({ articles }: Props) {
         </div>
       )}
 
-      <footer className="mt-12 border-t border-border pt-6 text-center">
+<footer className="mt-12 border-t border-border pt-6 text-center">
+        <div className="flex justify-center mb-3">
+          <img src="https://hits.sh/seacatbot.com.svg?style=flat-square&label=visitors&color=4ade80&labelColor=1f2937" alt="visitor counter" />
+        </div>
         <p className="text-xs text-muted-foreground">
           Auto-updated at 8:55 AM & 3:00 PM WIB · Powered by SeaCatBot
         </p>
