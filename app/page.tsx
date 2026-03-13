@@ -53,10 +53,17 @@ async function fetchArticles(): Promise<Article[]> {
 export default async function NewsDashboard() {
   const articles = await fetchArticles()
 
-  const bySection: Record<string, Article[]> = {}
+const bySection: Record<string, Article[]> = {}
   for (const article of articles) {
     if (!bySection[article.section]) bySection[article.section] = []
     bySection[article.section].push(article)
+  }
+  for (const section in bySection) {
+    bySection[section].sort((a, b) => {
+      const dateA = a.pub_date ?? a.created_at
+      const dateB = b.pub_date ?? b.created_at
+      return dateB.localeCompare(dateA)
+    })
   }
 
   const totalArticles = articles.length
