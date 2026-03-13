@@ -29,24 +29,12 @@ export function DashboardHeader() {
           </div>
 
           <nav className="hidden items-center gap-4 lg:flex">
-            <a href="#funding" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Funding
-            </a>
-            <a href="#economic" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Economic
-            </a>
-            <a href="#regional" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Regional
-            </a>
-            <a href="#vc-pe-ipo" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              VC/PE/IPO
-            </a>
-            <a href="#tech-giants" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Tech Giants
-            </a>
-            <a href="#opinions" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Reports
-            </a>
+            <a href="#funding-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Funding</a>
+            <a href="#vc-pe-ipo-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">VC/PE/IPO</a>
+            <a href="#regional-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Regional</a>
+            <a href="#economic-indicators" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Economic</a>
+            <a href="#tech-giants-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Tech Giants</a>
+            <a href="#opinions-blogs" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Reports</a>
           </nav>
 
           <div className="flex items-center gap-1">
@@ -64,48 +52,12 @@ export function DashboardHeader() {
         {mobileMenuOpen && (
           <nav className="border-t border-border py-4 lg:hidden">
             <div className="flex flex-col gap-3">
-              <a
-                href="#funding"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                ⭐ Funding News 2026
-              </a>
-              <a
-                href="#economic"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                🌐 Economic News
-              </a>
-              <a
-                href="#regional"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                🗞️ Regional News
-              </a>
-              <a
-                href="#vc-pe-ipo"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                📈 VC, PE & IPO News
-              </a>
-              <a
-                href="#tech-giants"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                🦄 Tech Giant News
-              </a>
-              <a
-                href="#opinions"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                📄 Opinions & Reports
-              </a>
+              <a href="#funding-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>⭐ Funding News</a>
+              <a href="#vc-pe-ipo-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>📈 VC, PE & IPO</a>
+              <a href="#regional-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🗞️ Regional News</a>
+              <a href="#economic-indicators" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🌐 Economic Indicators</a>
+              <a href="#tech-giants-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🦄 Tech Giants</a>
+              <a href="#opinions-blogs" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>📄 Opinions & Reports</a>
             </div>
           </nav>
         )}
