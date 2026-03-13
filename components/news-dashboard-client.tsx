@@ -68,7 +68,7 @@ export function NewsDashboardClient({ articles }: Props) {
               {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
             </p>
             <h2 className="mt-1 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-              <span role="img" aria-label="astronaut cat">🐱‍🚀</span> Southeast Startup News Radar
+              <span role="img" aria-label="astronaut cat">🐱‍🚀</span> Southeast Asia Startup News Radar
             </h2>
             {articles.length > 0 && (
               <p className="mt-1 text-xs text-muted-foreground">
