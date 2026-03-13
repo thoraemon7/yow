@@ -6,6 +6,7 @@ import { useState } from "react"
 
 export function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showAbout, setShowAbout] = useState(false)
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -38,10 +39,24 @@ export function DashboardHeader() {
           </nav>
 
           <div className="flex items-center gap-1">
-            <Button variant="ghost" size="icon" className="h-9 w-9 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10">
-              <CircleHelp className="h-4 w-4" />
-              <span className="sr-only">About</span>
-            </Button>
+            <div className="relative">
+              <Button variant="ghost" size="icon" className="h-9 w-9 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10" onClick={() => setShowAbout(!showAbout)}>
+                <CircleHelp className="h-4 w-4" />
+                <span className="sr-only">About</span>
+              </Button>
+              {showAbout && (
+                <div className="absolute right-0 top-10 z-50 w-72 rounded-lg border border-border bg-card p-4 shadow-lg">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      🐱 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially Indonesia, Singapore, Vietnam, and Philippines.
+                    </p>
+                    <button onClick={() => setShowAbout(false)} className="shrink-0 text-muted-foreground hover:text-foreground">
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             <Button variant="ghost" size="icon" className="h-9 w-9">
               <Search className="h-4 w-4 text-muted-foreground" />
               <span className="sr-only">Search</span>
