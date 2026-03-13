@@ -23,6 +23,7 @@ interface Props {
 export function NewsDashboardClient({ articles }: Props) {
   const [query, setQuery] = useState("")
   const [searchOpen, setSearchOpen] = useState(false)
+  const [popout, setPopout] = useState<"process" | "disclaimer" | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -73,10 +74,32 @@ export function NewsDashboardClient({ articles }: Props) {
               <span role="img" aria-label="astronaut cat">🐱‍🚀</span> SEA Startup News
             </h2>
             {articles.length > 0 && (
-              <p className="mt-1 text-xs text-muted-foreground">
-                {articles.length} articles from the last 7 days
-              </p>
-            )}
+            <p className="mt-1 text-xs text-muted-foreground">
+              {articles.length} articles from the last 7 days
+            </p>
+          )}
+          <div className="mt-2 flex flex-wrap gap-3">
+            <button onClick={() => setPopout(popout === "process" ? null : "process")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Process</button>
+            <button onClick={() => setPopout(popout === "disclaimer" ? null : "disclaimer")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Disclaimer</button>
+            <a href="https://tally.so/r/ODADP7" target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Suggest Site</a>
+          </div>
+          {popout && (
+            <div className="mt-3 max-w-md rounded-lg border border-border bg-card p-4 relative">
+              <button onClick={() => setPopout(null)} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground">
+                <X className="h-3 w-3" />
+              </button>
+              {popout === "process" && (
+                <p className="text-xs text-muted-foreground leading-relaxed italic">
+                  🇮🇩 🇸🇬 🇻🇳 🇵🇭 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially ID, SG, VN, PH.
+                </p>
+              )}
+              {popout === "disclaimer" && (
+                <p className="text-xs text-muted-foreground leading-relaxed italic">
+                  We only use publicly available information - Support quality journalism — click the link to read the full article and do subscribe to their contents!
+                </p>
+              )}
+            </div>
+          )}
           </div>
 
           {/* Search toggle */}
@@ -162,8 +185,11 @@ export function NewsDashboardClient({ articles }: Props) {
 
       <footer className="mt-12 border-t border-border pt-6 text-center">
         <p className="text-xs text-muted-foreground">
-          Auto-updated at 8:55 AM & 3:00 PM WIB · Powered by SeaCatBot
-        </p>
+            Auto-updated at 8:55 AM & 3:00 PM WIB · Powered by SeaCatBot
+          </p>
+          <p className="mt-2 text-xs text-muted-foreground/60 italic">
+            SCB curates publicly available news and reports. All articles belong to their original publishers. Click through to support original journalism.
+          </p>
       </footer>
     </main>
   )
