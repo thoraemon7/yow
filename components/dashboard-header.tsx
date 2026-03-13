@@ -1,6 +1,6 @@
 "use client"
 
-import { CircleHelp, Menu, Search, X } from "lucide-react"
+import { CircleHelp, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
@@ -31,16 +31,21 @@ export function DashboardHeader() {
 
           <nav className="hidden items-center gap-4 lg:flex">
             <a href="#funding-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Funding</a>
-            <a href="#vc-pe-ipo-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">VC/PE/IPO</a>
-            <a href="#regional-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Regional</a>
             <a href="#economic-indicators" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Economic</a>
+            <a href="#regional-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Regional</a>
+            <a href="#vc-pe-ipo-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">VC/PE/IPO</a>
             <a href="#tech-giants-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Tech Giants</a>
             <a href="#opinions-blogs" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Reports</a>
           </nav>
 
           <div className="flex items-center gap-1">
             <div className="relative">
-              <Button variant="ghost" size="icon" className="h-9 w-9 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10" onClick={() => setShowAbout(!showAbout)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10"
+                onClick={() => setShowAbout(!showAbout)}
+              >
                 <CircleHelp className="h-4 w-4" />
                 <span className="sr-only">About</span>
               </Button>
@@ -57,10 +62,6 @@ export function DashboardHeader() {
                 </div>
               )}
             </div>
-            <Button variant="ghost" size="icon" className="h-9 w-9">
-              <Search className="h-4 w-4 text-muted-foreground" />
-              <span className="sr-only">Search</span>
-            </Button>
           </div>
         </div>
 
@@ -68,10 +69,10 @@ export function DashboardHeader() {
           <nav className="border-t border-border py-4 lg:hidden">
             <div className="flex flex-col gap-3">
               <a href="#funding-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>⭐ Funding News</a>
-              <a href="#vc-pe-ipo-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>📈 VC, PE & IPO</a>
+              <a href="#economic-indicators" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🌐 Economic News</a>
               <a href="#regional-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🗞️ Regional News</a>
-              <a href="#economic-indicators" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🌐 Economic Indicators</a>
-              <a href="#tech-giants-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🦄 Tech Giants</a>
+              <a href="#vc-pe-ipo-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>📈 VC, PE & IPO News</a>
+              <a href="#tech-giants-news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>🦄 Tech Giants News</a>
               <a href="#opinions-blogs" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>📄 Opinions & Reports</a>
             </div>
           </nav>
