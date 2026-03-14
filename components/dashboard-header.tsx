@@ -25,7 +25,7 @@ export function DashboardHeader() {
               )}
             </button>
             <h1 className="text-lg font-bold tracking-tight text-foreground md:text-xl">
-              <span className="text-primary">SEACATBOT</span>.COM
+              WELCOME TO <span className="text-primary">SCB</span>🐱
             </h1>
           </div>
 
