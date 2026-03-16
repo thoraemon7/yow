@@ -22,7 +22,7 @@ interface Props {
 export function NewsDashboardClient({ articles }: Props) {
   const [query, setQuery] = useState("")
   const [searchOpen, setSearchOpen] = useState(false)
-  const [popout, setPopout] = useState<"process" | "disclaimer" | null>(null)
+  const [popout, setPopout] = useState<"process" | "disclaimer" | "changelog" | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -78,7 +78,8 @@ export function NewsDashboardClient({ articles }: Props) {
             <div className="mt-2 flex flex-wrap gap-3">
               <button onClick={() => setPopout(popout === "process" ? null : "process")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Process</button>
               <button onClick={() => setPopout(popout === "disclaimer" ? null : "disclaimer")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Disclaimer</button>
-              <a href="https://tally.so/r/ODADP7" target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Suggest Site</a>
+<a href="https://tally.so/r/ODADP7" target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Suggest Site</a>
+              <button onClick={() => setPopout(popout === "changelog" ? null : "changelog")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Change Log</button>
             </div>
             {popout && (
               <div className="mt-3 max-w-md rounded-lg border border-border bg-card p-4 relative">
@@ -90,11 +91,19 @@ export function NewsDashboardClient({ articles }: Props) {
                     🇮🇩 🇸🇬 🇻🇳 🇵🇭 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially ID, SG, VN, PH.
                   </p>
                 )}
-                {popout === "disclaimer" && (
-                  <p className="text-xs text-muted-foreground leading-relaxed italic">
-                    We only use publicly available information - Support quality journalism — click the link to read the full article and do subscribe to their contents!
-                  </p>
-                )}
+              {popout === "disclaimer" && (
+                <p className="text-xs text-muted-foreground leading-relaxed italic">
+                  We only use publicly available information - Support quality journalism — click the link to read the full article and do subscribe to their contents!
+                </p>
+              )}
+              {popout === "changelog" && (
+                <div className="text-xs text-muted-foreground leading-relaxed space-y-1">
+                  <p className="font-semibold text-foreground">Change Log</p>
+                  <p>v1.2 — Mar 16 2026: Added Trading Economics, search, visitor counter</p>
+                  <p>v1.1 — Mar 14 2026: Connected Supabase, live data, pub_date & source fix</p>
+                  <p>v1.0 — Mar 13 2026: Initial launch, migrated from Notion</p>
+                </div>
+              )}
               </div>
             )}
           </div>
