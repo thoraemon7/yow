@@ -24,9 +24,9 @@ export function DashboardHeader() {
                 <Menu className="h-5 w-5 text-foreground" />
               )}
             </button>
-            <h1 className="text-lg font-bold tracking-tight text-foreground md:text-xl">
+            <a href="https://seacatbot.com" className="text-lg font-bold tracking-tight text-foreground md:text-xl hover:opacity-80 transition-opacity">
               WELCOME TO <span className="text-primary">SCB</span>🐱
-            </h1>
+            </a>
           </div>
 
           <nav className="hidden items-center gap-4 lg:flex">
