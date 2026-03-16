@@ -88,7 +88,7 @@ export function NewsDashboardClient({ articles }: Props) {
                 </button>
                 {popout === "process" && (
                   <p className="text-xs text-muted-foreground leading-relaxed italic">
-                    🇮🇩 🇸🇬 🇻🇳 🇵🇭 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially ID, SG, VN, PH.
+                    🇮🇩 🇸🇬 🇻🇳 🇵🇭 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially Indonesia, Singapore, Vietnam, Philippines.
                   </p>
                 )}
               {popout === "disclaimer" && (
