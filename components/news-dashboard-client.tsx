@@ -13,6 +13,7 @@ const SECTION_CONFIG = [
   { key: "VC_PE_IPO_News",      label: "VC, PE & IPO News",  emoji: "📈", isFunding: false, initialItems: 4  },
   { key: "Tech_Giants_News",    label: "Tech Giants News",   emoji: "🦄", isFunding: false, initialItems: 4  },
   { key: "Opinions_Blogs",      label: "Opinions & Reports", emoji: "📄", isFunding: false, initialItems: 4  },
+  { key: "Dev_Messages",        label: "Messages from the Dev",emoji: "✉️", isFunding: false, initialItems: 4  },
 ] as const
 
 interface Props {
