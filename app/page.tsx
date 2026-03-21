@@ -19,16 +19,23 @@ export type Article = {
 async function fetchArticles(): Promise<Article[]> {
   try {
     const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-    const url = `${SUPABASE_URL}/rest/v1/articles?select=id,title_ai,summary,source,country,pub_date,link,section,created_at&section=neq.NOT_RELEVANT&created_at=gte.${since}&order=created_at.desc&limit=300`
-    const res = await fetch(url, {
-      headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      },
-      next: { revalidate: 900 },
-    })
-    if (!res.ok) return []
-    return res.json()
+    const headers = {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    }
+
+    const [regular, devMessages] = await Promise.all([
+      fetch(
+        `${SUPABASE_URL}/rest/v1/articles?select=id,title_ai,summary,source,country,pub_date,link,section,created_at&section=neq.NOT_RELEVANT&section=neq.Dev_Messages&created_at=gte.${since}&order=created_at.desc&limit=300`,
+        { headers, next: { revalidate: 900 } }
+      ).then(r => r.json()),
+      fetch(
+        `${SUPABASE_URL}/rest/v1/articles?select=id,title_ai,summary,source,country,pub_date,link,section,created_at&section=eq.Dev_Messages&order=created_at.desc`,
+        { headers, next: { revalidate: 900 } }
+      ).then(r => r.json()),
+    ])
+
+    return [...regular, ...devMessages]
   } catch {
     return []
   }
