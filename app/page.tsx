@@ -23,7 +23,6 @@ async function fetchArticles(): Promise<Article[]> {
       apikey: SUPABASE_ANON_KEY,
       Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
     }
-
     const [regular, devMessages] = await Promise.all([
       fetch(
         `${SUPABASE_URL}/rest/v1/articles?select=id,title_ai,summary,source,country,pub_date,link,section,created_at&section=neq.NOT_RELEVANT&section=neq.Dev_Messages&created_at=gte.${since}&order=created_at.desc&limit=300`,
@@ -34,7 +33,6 @@ async function fetchArticles(): Promise<Article[]> {
         { headers, next: { revalidate: 900 } }
       ).then(r => r.json()),
     ])
-
     return [...regular, ...devMessages]
   } catch {
     return []
