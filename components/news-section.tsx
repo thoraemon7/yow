@@ -85,7 +85,7 @@ export function NewsSection({
                 <div className="divide-y divide-border/50" role="list" aria-label={`${title} articles`}>
                   {visibleItems.map((item) => (
                     <div role="listitem" key={item.id}>
-                      <NewsCard
+                     <NewsCard
                         title_ai={item.title_ai}
                         summary={item.summary}
                         source={item.source}
@@ -93,6 +93,7 @@ export function NewsSection({
                         pub_date={item.pub_date}
                         link={item.link}
                         isFunding={isFunding}
+                        isDevMessage={title === "Messages from the Dev"}
                       />
                     </div>
                   ))}
