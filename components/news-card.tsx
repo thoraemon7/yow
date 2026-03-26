@@ -21,6 +21,16 @@ function countryToFlag(code: string): string {
   }
 }
 
+function countryName(code: string): string {
+  const names: Record<string, string> = {
+    ID: "Indonesia", SG: "Singapore", MY: "Malaysia", TH: "Thailand",
+    VN: "Vietnam", PH: "Philippines", MM: "Myanmar", KH: "Cambodia",
+    LA: "Laos", BN: "Brunei", US: "United States", CN: "China",
+    JP: "Japan", IN: "India", AU: "Australia", GB: "United Kingdom",
+  }
+  return names[code?.toUpperCase()] || code || "Unknown"
+}
+
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return ""
   try {
@@ -40,32 +50,60 @@ export function NewsCard(props: NewsCardProps) {
   const countryCode = props.country?.toUpperCase() || "?"
   const today = new Date().toISOString().split("T")[0]
   const isToday = props.pub_date === today
+  const flagLabel = countryName(props.country)
 
   return (
     <article className="group relative border-b border-border/50 py-3 transition-colors hover:bg-secondary/40">
-      <a href={props.link} target="_blank" rel="noopener noreferrer" className="block">
+      <a
+        href={props.link || "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 rounded"
+        aria-label={`${props.title_ai || props.source} (opens in new tab)`}
+        onClick={!props.link ? (e) => e.preventDefault() : undefined}
+      >
         <div className="flex items-start gap-3">
           <div className="flex shrink-0 flex-col items-center gap-0.5 pt-0.5 min-w-[36px]">
             {props.isFunding ? (
-              <span className="text-lg leading-none">{countryToFlag(props.country)}</span>
+              <span
+                className="text-lg leading-none"
+                role="img"
+                aria-label={flagLabel}
+              >
+                {countryToFlag(props.country)}
+              </span>
             ) : (
-              <span className="text-[11px] font-bold text-foreground leading-none tracking-wide">
+              <span
+                className="text-[11px] font-bold text-foreground leading-none tracking-wide"
+                aria-label={flagLabel}
+              >
                 {countryCode}
               </span>
             )}
             {date && (
-              <time className="text-[9px] text-muted-foreground text-center leading-tight mt-0.5">
+              <time
+                className="text-[9px] text-muted-foreground text-center leading-tight mt-0.5"
+                dateTime={props.pub_date || undefined}
+              >
                 {date}
               </time>
             )}
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="text-base font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-none">
-              {props.summary || props.title_ai}{isToday && <span className="ml-1 text-xs">🆕</span>}
+              {props.summary || props.title_ai}
+              {isToday && (
+                <span className="ml-1 text-xs" role="img" aria-label="New today">
+                  🆕
+                </span>
+              )}
             </h3>
             <p className="mt-1 text-xs text-muted-foreground/70 font-medium">{props.source}</p>
           </div>
-          <ArrowUpRight className="h-3 w-3 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 mt-1" />
+          <ArrowUpRight
+            className="h-3 w-3 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 mt-1"
+            aria-hidden="true"
+          />
         </div>
       </a>
     </article>

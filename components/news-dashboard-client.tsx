@@ -7,12 +7,12 @@ import { NewsCard } from "./news-card"
 import type { Article } from "@/app/page"
 
 const SECTION_CONFIG = [
-  { key: "Funding_News",        label: "Funding News",       emoji: "⭐", isFunding: true,  initialItems: 4  },
-  { key: "Economic_Indicators", label: "Economic News",      emoji: "🌐", isFunding: false, initialItems: 10 },
-  { key: "Regional_News",       label: "Regional News",      emoji: "🗞️", isFunding: false, initialItems: 10 },
-  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO News",  emoji: "📈", isFunding: false, initialItems: 4  },
-  { key: "Tech_Giants_News",    label: "Tech Giants News",   emoji: "🦄", isFunding: false, initialItems: 4  },
-  { key: "Opinions_Blogs",      label: "Opinions & Reports", emoji: "📄", isFunding: false, initialItems: 4  },
+  { key: "Funding_News",        label: "Funding News",         emoji: "⭐", isFunding: true,  initialItems: 4  },
+  { key: "Economic_Indicators", label: "Economic News",        emoji: "🌐", isFunding: false, initialItems: 10 },
+  { key: "Regional_News",       label: "Regional News",        emoji: "🗞️", isFunding: false, initialItems: 10 },
+  { key: "VC_PE_IPO_News",      label: "VC, PE & IPO News",    emoji: "📈", isFunding: false, initialItems: 4  },
+  { key: "Tech_Giants_News",    label: "Tech Giants News",     emoji: "🦄", isFunding: false, initialItems: 4  },
+  { key: "Opinions_Blogs",      label: "Opinions & Reports",   emoji: "📄", isFunding: false, initialItems: 4  },
   { key: "Dev_Messages",        label: "Messages from the Dev",emoji: "✉️", isFunding: false, initialItems: 4  },
 ] as const
 
@@ -61,76 +61,125 @@ export function NewsDashboardClient({ articles }: Props) {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-6 md:py-8">
+    <main className="mx-auto max-w-7xl px-4 py-6 md:py-8" id="main-content">
       <div className="mb-6 md:mb-8">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm text-muted-foreground">
-              {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+              <time dateTime={new Date().toISOString().split("T")[0]}>
+                {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+              </time>
             </p>
-            <h2 className="mt-1 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-              <span role="img" aria-label="astronaut cat">🐱📡</span> Southeast Asia <br /> Startup News Radar
-            </h2>
+            <h1 className="mt-1 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+              <span role="img" aria-label="cat with satellite dish">🐱📡</span> Southeast Asia <br /> Startup News Radar
+            </h1>
             {articles.length > 0 && (
               <p className="mt-1 text-xs text-muted-foreground">
                 {articles.length} articles from the last 7 days
               </p>
             )}
-            <div className="mt-2 flex flex-wrap gap-3">
-              <button onClick={() => setPopout(popout === "process" ? null : "process")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Process</button>
-              <button onClick={() => setPopout(popout === "disclaimer" ? null : "disclaimer")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Disclaimer</button>
-<a href="https://tally.so/r/ODADP7" target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Suggest Site</a>
-              <button onClick={() => setPopout(popout === "changelog" ? null : "changelog")} className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors">Change Log</button>
+            <div className="mt-2 flex flex-wrap gap-3" role="group" aria-label="Site information">
+              <button
+                onClick={() => setPopout(popout === "process" ? null : "process")}
+                className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary rounded"
+                aria-expanded={popout === "process"}
+              >
+                Process
+              </button>
+              <button
+                onClick={() => setPopout(popout === "disclaimer" ? null : "disclaimer")}
+                className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary rounded"
+                aria-expanded={popout === "disclaimer"}
+              >
+                Disclaimer
+              </button>
+              <a
+                href="https://tally.so/r/ODADP7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary rounded"
+                aria-label="Suggest a site (opens in new tab)"
+              >
+                Suggest Site
+              </a>
+              <button
+                onClick={() => setPopout(popout === "changelog" ? null : "changelog")}
+                className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary rounded"
+                aria-expanded={popout === "changelog"}
+              >
+                Change Log
+              </button>
             </div>
             {popout && (
-              <div className="mt-3 max-w-md rounded-lg border border-border bg-card p-4 relative">
-                <button onClick={() => setPopout(null)} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground">
-                  <X className="h-3 w-3" />
+              <div
+                className="mt-3 max-w-md rounded-lg border border-border bg-card p-4 relative"
+                role="region"
+                aria-label={popout === "process" ? "Process information" : popout === "disclaimer" ? "Disclaimer" : "Change log"}
+              >
+                <button
+                  onClick={() => setPopout(null)}
+                  className="absolute top-3 right-3 text-muted-foreground hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  aria-label="Close panel"
+                >
+                  <X className="h-3 w-3" aria-hidden="true" />
                 </button>
                 {popout === "process" && (
                   <p className="text-xs text-muted-foreground leading-relaxed italic">
-                    🇮🇩 🇸🇬 🇻🇳 🇵🇭 This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially Indonesia, Singapore, Vietnam, Philippines.
+                    <span role="img" aria-label="Indonesia">🇮🇩</span>{" "}
+                    <span role="img" aria-label="Singapore">🇸🇬</span>{" "}
+                    <span role="img" aria-label="Vietnam">🇻🇳</span>{" "}
+                    <span role="img" aria-label="Philippines">🇵🇭</span>{" "}
+                    This site is automated to update daily, with a cat monitoring its content. It spits out and curates Start-Up news from the Southeast Asia region especially Indonesia, Singapore, Vietnam, Philippines.
                   </p>
                 )}
-              {popout === "disclaimer" && (
-                <p className="text-xs text-muted-foreground leading-relaxed italic">
-                  We only use publicly available information - Support quality journalism — click the link to read the full article and do subscribe to their contents!
-                </p>
-              )}
-              {popout === "changelog" && (
-                <div className="text-xs text-muted-foreground leading-relaxed space-y-1">
-                  <p className="font-semibold text-foreground">Change Log</p>
-                  <p>v1.2 — Mar 16 2026: Added Trading Economics, search, visitor counter</p>
-                  <p>v1.1 — Mar 14 2026: Connected Supabase, live data, pub_date & source fix</p>
-                  <p>v1.0 — Mar 13 2026: Initial launch, migrated from Notion</p>
-                </div>
-              )}
+                {popout === "disclaimer" && (
+                  <p className="text-xs text-muted-foreground leading-relaxed italic">
+                    We only use publicly available information - Support quality journalism — click the link to read the full article and do subscribe to their contents!
+                  </p>
+                )}
+                {popout === "changelog" && (
+                  <div className="text-xs text-muted-foreground leading-relaxed space-y-1">
+                    <p className="font-semibold text-foreground">Change Log</p>
+                    <p>v1.2 — Mar 16 2026: Added Trading Economics, search, visitor counter</p>
+                    <p>v1.1 — Mar 14 2026: Connected Supabase, live data, pub_date & source fix</p>
+                    <p>v1.0 — Mar 13 2026: Initial launch, migrated from Notion</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
 
           <div className="flex items-center gap-2 mt-1">
             {searchOpen ? (
-              <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
-                <Search className="h-4 w-4 text-muted-foreground shrink-0" />
+              <div
+                className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2"
+                role="search"
+              >
+                <Search className="h-4 w-4 text-muted-foreground shrink-0" aria-hidden="true" />
                 <input
                   ref={inputRef}
-                  type="text"
+                  type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search articles..."
-                  className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none w-48 md:w-64"
+                  aria-label="Search articles"
+                  className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none w-48 md:w-64 focus-visible:ring-0"
                 />
-                <button onClick={handleClose} className="text-muted-foreground hover:text-foreground">
-                  <X className="h-4 w-4" />
+                <button
+                  onClick={handleClose}
+                  className="text-muted-foreground hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+                  aria-label="Clear search"
+                >
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             ) : (
               <button
                 onClick={() => setSearchOpen(true)}
-                className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label="Open search"
               >
-                <Search className="h-4 w-4" />
+                <Search className="h-4 w-4" aria-hidden="true" />
                 <span className="hidden md:inline">Search</span>
               </button>
             )}
@@ -139,34 +188,35 @@ export function NewsDashboardClient({ articles }: Props) {
       </div>
 
       {isSearching ? (
-        <div>
-          <p className="mb-4 text-xs text-muted-foreground">
+        <section aria-label={`Search results for ${query}`}>
+          <p className="mb-4 text-xs text-muted-foreground" aria-live="polite" aria-atomic="true">
             {filtered.length} result{filtered.length !== 1 ? "s" : ""} for &quot;{query}&quot;
           </p>
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <span className="text-4xl mb-4">🔍</span>
+              <span className="text-4xl mb-4" role="img" aria-label="magnifying glass">🔍</span>
               <p className="text-muted-foreground text-sm">No articles match your search.</p>
             </div>
           ) : (
-            <div className="rounded-lg border border-border bg-card divide-y divide-border/50 px-4">
+            <div className="rounded-lg border border-border bg-card divide-y divide-border/50 px-4" role="list" aria-label="Search results">
               {filtered.map((item) => (
-                <NewsCard
-                  key={item.id}
-                  title_ai={item.title_ai}
-                  source={item.source}
-                  country={item.country}
-                  pub_date={item.pub_date}
-                  link={item.link}
-                  isFunding={item.section === "Funding_News"}
-                />
+                <div role="listitem" key={item.id}>
+                  <NewsCard
+                    title_ai={item.title_ai}
+                    source={item.source}
+                    country={item.country}
+                    pub_date={item.pub_date}
+                    link={item.link}
+                    isFunding={item.section === "Funding_News"}
+                  />
+                </div>
               ))}
             </div>
           )}
-        </div>
+        </section>
       ) : articles.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <span className="text-4xl mb-4">📭</span>
+          <span className="text-4xl mb-4" role="img" aria-label="empty mailbox">📭</span>
           <p className="text-muted-foreground text-sm">No articles found. The bot may still be warming up.</p>
         </div>
       ) : (
@@ -188,9 +238,14 @@ export function NewsDashboardClient({ articles }: Props) {
         </div>
       )}
 
-<footer className="mt-12 border-t border-border pt-6 text-center">
+      <footer className="mt-12 border-t border-border pt-6 text-center">
         <div className="flex justify-center mb-3">
-          <img src="https://hits.sh/seacatbot.com.svg?style=flat-square&label=visitors&color=4ade80&labelColor=1f2937" alt="visitor counter" />
+          <img
+            src="https://hits.sh/seacatbot.com.svg?style=flat-square&label=visitors&color=4ade80&labelColor=1f2937"
+            alt="Visitor counter"
+            width="120"
+            height="20"
+          />
         </div>
         <p className="text-xs text-muted-foreground">
           Auto-updated at 8:55 AM & 3:00 PM WIB · Powered by SeaCatBot
