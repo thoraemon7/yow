@@ -9,6 +9,7 @@ interface NewsCardProps {
   pub_date: string | null
   link: string
   isFunding?: boolean
+  isDevMessage?: boolean
 }
 
 function countryToFlag(code: string): string {
@@ -91,7 +92,7 @@ export function NewsCard(props: NewsCardProps) {
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="text-base font-semibold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-none">
-              {props.summary || props.title_ai}
+              {props.isDevMessage ? props.title_ai : (props.summary || props.title_ai)}
               {isToday && (
                 <span className="ml-1 text-xs" role="img" aria-label="New today">
                   🆕
