@@ -9,7 +9,9 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Seacatbot.com - Southeast Asia Startup News Radar',
   description: 'Stay informed with funding news, regional updates, and economic indicators from around the world',
-  generator: 'v0.app',
+  alternates: {
+    canonical: 'https://seacatbot.com',
+  },
   icons: {
     icon: [
       {
