@@ -25,8 +25,9 @@ async function fetchMessage(id: string) {
   }
 }
 
-export default async function DevMessagePage({ params }: { params: { id: string } }) {
-  const message = await fetchMessage(params.id)
+export default async function DevMessagePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const message = await fetchMessage(id)
 
   return (
     <div className="min-h-screen bg-background">
