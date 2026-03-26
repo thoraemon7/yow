@@ -140,6 +140,7 @@ export function NewsDashboardClient({ articles }: Props) {
                 {popout === "changelog" && (
                   <div className="text-xs text-muted-foreground leading-relaxed space-y-1">
                   <p className="font-semibold text-foreground">Change Log</p>
+                  <p>v1.4 — Mar 26 2026: Funding News now loads all historical articles, Dev Messages page, accessibility improvements</p>
                   <p>v1.3 — Mar 26 2026: Accessibility improvements — screen reader labels, keyboard focus indicators, semantic HTML</p>
                   <p>v1.2 — Mar 16 2026: Added Trading Economics, search, visitor counter</p>
                   <p>v1.1 — Mar 14 2026: Connected Supabase, live data, pub_date & source fix</p>
